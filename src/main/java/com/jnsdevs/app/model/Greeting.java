@@ -1,4 +1,4 @@
-package com.jnsdevs.app;
+package com.jnsdevs.app.model;
 
 /**
  * @Autor Jairo Nascimento

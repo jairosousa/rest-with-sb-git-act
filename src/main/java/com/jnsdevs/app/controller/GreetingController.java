@@ -1,5 +1,6 @@
-package com.jnsdevs.app;
+package com.jnsdevs.app.controller;
 
+import com.jnsdevs.app.model.Greeting;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
