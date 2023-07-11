@@ -3,6 +3,8 @@ package com.jnsdevs.app.services;
 import com.jnsdevs.app.model.Person;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -17,7 +19,7 @@ public class PersonServices {
 
     private Logger logger = Logger.getLogger(PersonServices.class.getName());
 
-    public Person finsById(Long id) {
+    public Person findById(Long id) {
         logger.info("Fiding one person!");
 
         var person = new Person();
@@ -25,6 +27,28 @@ public class PersonServices {
         person.setFirstName("Jairo");
         person.setLastName("Nascimento");
         person.setAddress("Uberlândia - Minas Gerais - Brasil");
+        person.setGender("Male");
+        return person;
+    }
+
+    public List<Person> findAll() {
+        logger.info("Fiding all people!");
+
+        List<Person> persons = new ArrayList<>();
+
+        for (int i = 0; i < 8; i++) {
+            persons.add(mockPerson(i));
+        }
+
+        return persons;
+    }
+
+    private Person mockPerson(int i) {
+        var person = new Person();
+        person.setId(counter.incrementAndGet());
+        person.setFirstName("Person name "+i);
+        person.setLastName("Last Name "+i);
+        person.setAddress("Some address in Brasil " +i);
         person.setGender("Male");
         return person;
     }
