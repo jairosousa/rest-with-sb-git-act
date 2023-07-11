@@ -43,12 +43,27 @@ public class PersonServices {
         return persons;
     }
 
+    public Person create(Person person) {
+        logger.info("Creatind one person!");
+        person.setId(counter.incrementAndGet());
+        return person;
+    }
+
+    public Person update(Person person) {
+        logger.info("Updade one person!");
+        return person;
+    }
+
+    public void delete(Long id) {
+        logger.info("Deleting one person!");
+    }
+
     private Person mockPerson(int i) {
         var person = new Person();
         person.setId(counter.incrementAndGet());
-        person.setFirstName("Person name "+i);
-        person.setLastName("Last Name "+i);
-        person.setAddress("Some address in Brasil " +i);
+        person.setFirstName("Person name " + i);
+        person.setLastName("Last Name " + i);
+        person.setAddress("Some address in Brasil " + i);
         person.setGender("Male");
         return person;
     }
