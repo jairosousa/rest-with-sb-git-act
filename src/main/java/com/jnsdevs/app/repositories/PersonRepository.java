@@ -17,11 +17,33 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
 
     Optional<Person> findByEmail(String email);
 
+    /**
+     * Define custom query using JPQL with index parametrs
+     * @param firstName
+     * @param lastName
+     * @return Person
+     */
     @Query("select p from Person p where p.firstName =?1 and p.lastName =?2")
     Person findByJPQL(String firstName, String lastName);
 
-    @Query("select p from Person p where p.firstName =:firstName and p.lastName =:lastName")
+    /**
+     * Define custom query using JPQL with named parametrs
+     * @param firstName
+     * @param lastName
+     * @return Person
+     */
+
+    /**
+     * Define custom query using native SQL with index parametrs
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    @Query(value = "select p from Person p where p.firstName =:firstName and p.lastName =:lastName")
     Person findByJPQLNamedParametrs(
             @Param("firstName") String firstName,
             @Param("lastName") String lastName);
+
+    @Query(value = "select * from person p where p.first_name =?1 and p.last_name =?2", nativeQuery = true)
+    Person findByNativeSQL(String firstName, String lastName);
 }
