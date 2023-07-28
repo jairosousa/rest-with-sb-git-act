@@ -173,4 +173,27 @@ class PersonRepositoryTest {
         assertEquals(lastName, findedPerson.getLastName());
 
     }
+
+    @DisplayName("Given FirstName And LastName when Find JPQL Named Parameters then Return Person Object")
+    @Test
+    void testGivenFirstNameAndLastName_whenFindJPQLNamedParametrs_thenReturnPersonObject() {
+        // Given / Arrange
+        String firstName = "Jairo";
+        String lastName = "Nascimento";
+        var person = new Person(
+                firstName,
+                lastName,
+                "Uberlandia",
+                "Male",
+                "jairo@email.com");
+        personRepository.save(person);
+        //When / Act
+        Person findedPerson = personRepository.findByJPQLNamedParametrs(firstName, lastName);
+
+        //Then / Assert
+        assertNotNull(findedPerson);
+        assertEquals(firstName, findedPerson.getFirstName());
+        assertEquals(lastName, findedPerson.getLastName());
+
+    }
 }
