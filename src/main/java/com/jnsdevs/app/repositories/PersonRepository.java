@@ -34,7 +34,7 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
      */
 
     /**
-     * Define custom query using native SQL with index parametrs
+     * Define custom query using native SQL with named parametrs
      * @param firstName
      * @param lastName
      * @return
@@ -44,6 +44,23 @@ public interface PersonRepository extends JpaRepository<Person, Long> {
             @Param("firstName") String firstName,
             @Param("lastName") String lastName);
 
+    /**
+     * Define custom query using native SQL with index parametrs
+     * @param firstName
+     * @param lastName
+     * @return
+     */
     @Query(value = "select * from person p where p.first_name =?1 and p.last_name =?2", nativeQuery = true)
     Person findByNativeSQL(String firstName, String lastName);
+
+    /**
+     * Define custom query using native SQL with named parametrs
+     * @param firstName
+     * @param lastName
+     * @return
+     */
+    @Query(value = "select * from person p where p.first_name =:firstName and p.last_name =:lastName", nativeQuery = true)
+    Person findByNativeSQLWithNamedParametrs(
+            @Param("firstName") String firstName,
+            @Param("lastName") String lastName);
 }
