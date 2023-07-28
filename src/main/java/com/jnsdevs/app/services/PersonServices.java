@@ -4,9 +4,11 @@ import com.jnsdevs.app.exceptions.ResourceNotFoundException;
 import com.jnsdevs.app.model.Person;
 import com.jnsdevs.app.repositories.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.logging.Logger;
 
@@ -39,6 +41,11 @@ public class PersonServices {
 
     public Person create(Person person) {
         logger.info("Creatind one person!");
+        Optional<Person> savedPerson = personRepository.findByEmail(person.getEmail());
+
+        if(savedPerson.isPresent()) {
+            throw new ResourceNotFoundException("Person already exist given e-mail: " + person.getEmail());
+        };
         return personRepository.save(person);
     }
 
