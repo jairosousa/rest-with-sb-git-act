@@ -11,6 +11,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -78,6 +79,27 @@ public class PersonServicesTest {
         assertNotNull(exception);
         assertEquals("Person already exist given e-mail: " + person.getEmail(), exception.getMessage());
         verify(personRepository, never()).save(any(Person.class));
+
+    }
+
+    @DisplayName("JUNIT test for Given Person List when find all Person then Return Person List")
+    @Test
+    void testGivenPersonList_whenFindAllPerson_thenReturnPersonList() {
+        // Given
+        var person1 = new Person(
+                "Silvana",
+                "Luz",
+                "Uberlandia",
+                "Female",
+                "jairo@email.com");
+        given(personRepository.findAll()).willReturn(List.of(person, person1));
+
+        //When
+        List<Person> personList = personServices.findAll();
+
+        //Then
+        assertNotNull(personList);
+        assertEquals(2, personList.size());
 
     }
 
