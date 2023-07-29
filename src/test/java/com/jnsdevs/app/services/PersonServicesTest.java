@@ -11,12 +11,12 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
@@ -100,6 +100,37 @@ public class PersonServicesTest {
         //Then
         assertNotNull(personList);
         assertEquals(2, personList.size());
+
+    }
+
+    @DisplayName("JUNIT test for Given Empty Person List when find all Person then Return Person Empty List")
+    @Test
+    void testGivenEmptyPersonList_whenFindAllPerson_thenReturnPersonEmptyList() {
+        // Given
+        given(personRepository.findAll()).willReturn(Collections.emptyList());
+
+        //When
+        List<Person> personList = personServices.findAll();
+
+        //Then
+        assertNotNull(personList);
+        assertTrue(personList.isEmpty());
+        assertEquals(0, personList.size());
+
+    }
+
+    @DisplayName("JUNIT test for Given PersonId when findById then Return Person Object")
+    @Test
+    void testGivenPersonId_whenFindById_thenReturnPersonObject() {
+        // Given
+        given(personRepository.findById(anyLong())).willReturn(Optional.of(person));
+
+        //When
+        var findPerson = personServices.findById(1L); // pode ser qualquer long
+
+        //Then
+        assertNotNull(findPerson);
+        assertEquals("Jairo", findPerson.getFirstName());
 
     }
 
