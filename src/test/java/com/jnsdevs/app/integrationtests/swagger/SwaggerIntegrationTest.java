@@ -2,7 +2,6 @@ package com.jnsdevs.app.integrationtests.swagger;
 
 import com.jnsdevs.app.config.TestConfigs;
 import com.jnsdevs.app.integrationtests.testcontainers.AbstractIntegrationTest;
-import org.junit.Assert;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
