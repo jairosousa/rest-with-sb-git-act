@@ -112,24 +112,56 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
                 .body()
                 .asString();
 
-        Person createPerson = mapper.readValue(content, Person.class);
+        Person updatePerson = mapper.readValue(content, Person.class);
 
-        person = createPerson;
+        assertNotNull(updatePerson);
+        assertNotNull(updatePerson.getId());
+        assertNotNull(updatePerson.getFirstName());
+        assertNotNull(updatePerson.getLastName());
+        assertNotNull(updatePerson.getAddress());
+        assertNotNull(updatePerson.getGender());
+        assertNotNull(updatePerson.getEmail());
 
-        assertNotNull(createPerson);
-        assertNotNull(createPerson.getId());
-        assertNotNull(createPerson.getFirstName());
-        assertNotNull(createPerson.getLastName());
-        assertNotNull(createPerson.getAddress());
-        assertNotNull(createPerson.getGender());
-        assertNotNull(createPerson.getEmail());
+        assertTrue(updatePerson.getId() > 0);
+        assertEquals("Silvana", updatePerson.getFirstName());
+        assertEquals("Luz", updatePerson.getLastName());
+        assertEquals("Uberlandia", updatePerson.getAddress());
+        assertEquals("Female", updatePerson.getGender());
+        assertEquals("sls@email.com", updatePerson.getEmail());
+    }
 
-        assertTrue(createPerson.getId() > 0);
-        assertEquals("Silvana", createPerson.getFirstName());
-        assertEquals("Luz", createPerson.getLastName());
-        assertEquals("Uberlandia", createPerson.getAddress());
-        assertEquals("Female", createPerson.getGender());
-        assertEquals("sls@email.com", createPerson.getEmail());
+    @Test
+    @Order(3)
+    @DisplayName("JUNIT integration Test Given Person Object when FindById Should Return A Person Object")
+    void integrationTestGivenPersonObject_when_FindById_ShouldReturnAPersonObject() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .pathParam("id", person.getId())
+                .when()
+                .get("{id}")
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        Person dataPerson = mapper.readValue(content, Person.class);
+
+        assertNotNull(dataPerson);
+        assertNotNull(dataPerson.getId());
+        assertNotNull(dataPerson.getFirstName());
+        assertNotNull(dataPerson.getLastName());
+        assertNotNull(dataPerson.getAddress());
+        assertNotNull(dataPerson.getGender());
+        assertNotNull(dataPerson.getEmail());
+
+        assertTrue(dataPerson.getId() > 0);
+        assertEquals("Silvana", dataPerson.getFirstName());
+        assertEquals("Luz", dataPerson.getLastName());
+        assertEquals("Uberlandia", dataPerson.getAddress());
+        assertEquals("Female", dataPerson.getGender());
+        assertEquals("sls@email.com", dataPerson.getEmail());
     }
 
 }
