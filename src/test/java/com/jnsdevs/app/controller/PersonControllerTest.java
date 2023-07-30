@@ -1,6 +1,7 @@
 package com.jnsdevs.app.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.jnsdevs.app.exceptions.ResourceNotFoundException;
 import com.jnsdevs.app.model.Person;
 import com.jnsdevs.app.services.PersonServices;
 import org.junit.jupiter.api.BeforeEach;
@@ -125,6 +126,24 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.firstName", is(person.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(person.getLastName())))
                 .andExpect(jsonPath("$.email", is(person.getEmail())));
+
+    }
+
+    @Test
+    @DisplayName("JUnit test for Given Invavid personId when findById then Return not found")
+    void testGivenInvalidPersonId_WhenFindById_thenReturnNotFound() throws Exception {
+
+        //Given / Arrange
+        Long personId = 1L;
+        given(personServices.findById(personId)).willThrow(ResourceNotFoundException.class);
+
+        //When / Act
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/api/person/{id}", personId));
+
+        //Then / Assert
+        response
+                .andExpect(status().isNotFound())
+                .andDo(print());
 
     }
 

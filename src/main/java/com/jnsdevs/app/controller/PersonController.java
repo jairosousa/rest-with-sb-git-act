@@ -17,8 +17,14 @@ public class PersonController {
     private PersonServices personServices;
 
     @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
-    public Person findById(@PathVariable("id") Long id) {
-        return personServices.findById(id);
+    public ResponseEntity<Person> findById(@PathVariable("id") Long id) {
+        try {
+            return ResponseEntity.ok(personServices.findById(id));
+
+        } catch (Exception ex) {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
