@@ -90,4 +90,46 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
         assertEquals("jairo@email.com", createPerson.getEmail());
     }
 
+    @Test
+    @Order(2)
+    @DisplayName("JUNIT integration Test Given Person Object when Update One Person Should Return A Update Person Object")
+    void integrationTestGivenPersonObject_when_UpdateOnePerson_ShouldReturnAUpdatePersonObject() throws JsonProcessingException {
+
+        person.setFirstName("Silvana");
+        person.setLastName("Luz");
+        person.setEmail("sls@email.com");
+        person.setGender("Female");
+
+        var content = given()
+                .spec(specification)
+                .contentType(TestConfigs.CONTENT_TYPE_JSON)
+                .body(person)
+                .when()
+                .put()
+                .then()
+                .statusCode(200)
+                .extract()
+                .body()
+                .asString();
+
+        Person createPerson = mapper.readValue(content, Person.class);
+
+        person = createPerson;
+
+        assertNotNull(createPerson);
+        assertNotNull(createPerson.getId());
+        assertNotNull(createPerson.getFirstName());
+        assertNotNull(createPerson.getLastName());
+        assertNotNull(createPerson.getAddress());
+        assertNotNull(createPerson.getGender());
+        assertNotNull(createPerson.getEmail());
+
+        assertTrue(createPerson.getId() > 0);
+        assertEquals("Silvana", createPerson.getFirstName());
+        assertEquals("Luz", createPerson.getLastName());
+        assertEquals("Uberlandia", createPerson.getAddress());
+        assertEquals("Female", createPerson.getGender());
+        assertEquals("sls@email.com", createPerson.getEmail());
+    }
+
 }
