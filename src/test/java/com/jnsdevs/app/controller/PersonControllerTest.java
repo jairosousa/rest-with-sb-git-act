@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
@@ -72,6 +75,34 @@ class PersonControllerTest {
                 .andExpect(jsonPath("$.firstName", is(person.getFirstName())))
                 .andExpect(jsonPath("$.lastName", is(person.getLastName())))
                 .andExpect(jsonPath("$.email", is(person.getEmail())));
+
+    }
+
+    @Test
+    @DisplayName("JUnit test for Given list Persons when findAll Person then Return Person list")
+    void testGivenListOfPersons_WhenCreatePerson_thenReturnPersonList() throws Exception {
+
+        //Given / Arrange
+        List<Person> persons = new ArrayList<>();
+        persons.add(person);
+        persons.add(new Person(
+                "Silvana",
+                "Luz",
+                "Uberlândia",
+                "Female",
+                "sls@email.com"
+        ));
+
+        given(personServices.findAll()).willReturn(persons);
+
+        //When / Act
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.get("/api/person"));
+
+        //Then / Assert
+        response
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.size()", is(persons.size())));
 
     }
 
