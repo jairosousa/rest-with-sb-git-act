@@ -22,7 +22,6 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -146,5 +145,35 @@ class PersonControllerTest {
                 .andDo(print());
 
     }
+
+    @Test
+    @DisplayName("JUnit test for Given update Person when Update then Return Updated Person Object")
+    void testGivenUpdatePerson_WhenUpdate_thenReturnUpdatedPersonObject() throws Exception {
+
+        //Given / Arrange
+        Long personId = 1L;
+        person.setId(personId);
+        given(personServices.findById(person.getId())).willReturn(person);
+        person.setFirstName("Silvana");
+        person.setLastName("Luz");
+        person.setEmail("sls@email.com");
+        given(personServices.update(person)).willAnswer((invocation -> invocation.getArgument(0)));
+
+        //When / Act
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.put("/api/person")
+                .contentType(APPLICATION_JSON)
+                .content(mapper
+                        .writeValueAsString(person)));
+
+        //Then / Assert
+        response
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(jsonPath("$.firstName", is(person.getFirstName())))
+                .andExpect(jsonPath("$.lastName", is(person.getLastName())))
+                .andExpect(jsonPath("$.email", is(person.getEmail())));
+
+    }
+
 
 }
