@@ -21,6 +21,7 @@ import java.util.List;
 import static org.hamcrest.CoreMatchers.is;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.BDDMockito.willDoNothing;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -198,5 +199,23 @@ class PersonControllerTest {
 
     }
 
+    @Test
+    @DisplayName("JUnit test for Given personId when Delete then Return Not Content")
+    void testGivenPersonId_WhenDelete_thenReturnNotContent() throws Exception {
+
+        //Given / Arrange
+        Long personId = 1L;
+        willDoNothing().given(personServices).delete(personId);
+
+        //When / Act
+        ResultActions response = mockMvc
+                .perform(MockMvcRequestBuilders.delete("/api/person/{id}", personId));
+
+        //Then / Assert
+        response
+                .andExpect(status().isNoContent())
+                .andDo(print());
+
+    }
 
 }
