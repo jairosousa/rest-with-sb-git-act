@@ -175,5 +175,28 @@ class PersonControllerTest {
 
     }
 
+    @Test
+    @DisplayName("JUnit test for Given inexistent Person when Update then Return Updated Not Found")
+    void testGivenUnexistentPerson_WhenUpdate_thenReturnNotFound() throws Exception {
+
+        //Given / Arrange
+        Long personId = 1L;
+        person.setId(personId);
+        given(personServices.findById(person.getId())).willThrow(ResourceNotFoundException.class);
+        given(personServices.update(person)).willAnswer((invocation -> invocation.getArgument(1)));
+
+        //When / Act
+        ResultActions response = mockMvc.perform(MockMvcRequestBuilders.put("/api/person")
+                .contentType(APPLICATION_JSON)
+                .content(mapper
+                        .writeValueAsString(person)));
+
+        //Then / Assert
+        response
+                .andExpect(status().isNotFound())
+                .andDo(print());
+
+    }
+
 
 }
