@@ -168,7 +168,7 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
     }
 
     @Test
-    @Order(3)
+    @Order(4)
     @DisplayName("JUNIT integration Test when FindAll Should Return A Person List")
     void integrationTest_when_FindAll_ShouldReturnAPersonList() throws JsonProcessingException {
 
@@ -234,6 +234,21 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
         assertEquals("Uberlandia", foundPersonTwo.getAddress());
         assertEquals("Male", foundPersonTwo.getGender());
         assertEquals("jnsf@email.com", foundPersonTwo.getEmail());
+    }
+
+    @Test
+    @Order(5)
+    @DisplayName("JUNIT integration Test Given Person Object when delete Should Return No Content")
+    void integrationTestGivenPersonObject_when_Delete_ShouldReturnNoContent() throws JsonProcessingException {
+
+        var content = given()
+                .spec(specification)
+                .pathParam("id", person.getId())
+                .when()
+                .delete("{id}")
+                .then()
+                .statusCode(204);
+
     }
 
 }

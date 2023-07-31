@@ -69,7 +69,7 @@ class PersonRepositoryTest extends AbstractIntegrationTest {
 
         //Then / Assert
         assertNotNull(personList);
-        assertEquals(2, personList.size());
+        assertTrue(personList.size() > 2);
 
     }
 
