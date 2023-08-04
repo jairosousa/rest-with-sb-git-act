@@ -1,7 +1,7 @@
 server:
   port: 80
 file:
-  upload-dir: /home/runner/work/rest-with-sb-git-act/rest-with-sb-git-act
+  upload-dir: /home/runner/work/rest-with-sb-git-act/
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
