@@ -14,7 +14,7 @@
 	<name>rest-with-sb-git-act</name>
 	<description>Curso Udemy Leandro Costa - Erudio</description>
 	<properties>
-		<java.version>20</java.version>
+		<java.version>17</java.version>
 		<springdoc.version>2.1.0</springdoc.version>
 		<testcontainers.version>1.18.0</testcontainers.version>
 	</properties>
