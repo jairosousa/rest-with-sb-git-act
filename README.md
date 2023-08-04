@@ -9,3 +9,8 @@ docker run --name dev-mysql -e MYSQL_ROOT_PASSWORD=root -e MYSQL_DATABASE=bankdb
 ```shell
 mvn clean package -DskipTests=true
 ```
+
+# Docker Compose
+```shell
+docker compose up -d --build
+```

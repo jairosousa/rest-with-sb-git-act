@@ -26,13 +26,15 @@ services:
     environment:
       TZ: America/Sao_Paulo
       SPRING.DATASOURCE.URL: jdbc:mysql://db:3308/bankdb?useTimezone=true&serverTimezone=UTC
-      SPRING.DATASOURCE.USERNAME: docker
-      SPRING.DATASOURCE.PASSWORD: docker123
+      SPRING.DATASOURCE.USERNAME: root
+      SPRING.DATASOURCE.PASSWORD: admin123
     ports:
       - 80:80
     command: mvn spring-boot:run
     depends_on:
       - db
+    networks:
+      - jnsdev-network
 networks:
   jnsdev-network:
     driver: bridge
