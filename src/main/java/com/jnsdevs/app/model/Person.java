@@ -14,7 +14,6 @@ import java.util.Objects;
 public class Person implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -112,5 +111,17 @@ public class Person implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, address, gender);
+    }
+
+    @Override
+    public String toString() {
+        return "Person{" +
+                "id= " + id +
+                ", firstName= '" + firstName + '\'' +
+                ", lastName= '" + lastName + '\'' +
+                ", address= '" + address + '\'' +
+                ", gender= '" + gender + '\'' +
+                ", email= '" + email + '\'' +
+                '}';
     }
 }
