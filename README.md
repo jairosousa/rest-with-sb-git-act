@@ -1,6 +1,7 @@
 # Rest with Spring Boot e Git Action
 
 [![Docker Hub Repo](https://img.shields.io/docker/pulls/jnsousa/rest-with-sb-git-act.svg)](https://hub.docker.com/repository/docker/jnsousa/rest-with-sb-git-act)
+![GitHub Workflow Status (with event)](https://img.shields.io/github/actions/workflow/status/jairosousa/rest-with-sb-git-act/continuos-integrations.yml)
 
 # MySQL
 ```shell
