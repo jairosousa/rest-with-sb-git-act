@@ -21,7 +21,7 @@ services:
   rest-with-sb-git-act:
     image: jnsousa/rest-with-sb-git-act
     restart: always
-    build: ./rest-with-sb-git-act
+    build: .
     working_dir: /rest-with-sb-git-act
     environment:
       TZ: America/Sao_Paulo
