@@ -70,7 +70,7 @@ class PersonRepositoryTest extends AbstractIntegrationTest {
         //Then / Assert
         assertNotNull(personList);
         assertTrue(personList.size() > 2);
-
+        System.out.println("TAMANHO_LISTA: "+personList.size());
     }
 
     @DisplayName("Given Person Object when find by ID then Return Person Object")

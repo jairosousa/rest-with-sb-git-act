@@ -240,7 +240,7 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
     @Order(5)
     @DisplayName("JUNIT integration Test Given Person Object when delete Should Return No Content")
     void integrationTestGivenPersonObject_when_Delete_ShouldReturnNoContent() throws JsonProcessingException {
-
+        person.setId(1L);
         var content = given()
                 .spec(specification)
                 .pathParam("id", person.getId())
