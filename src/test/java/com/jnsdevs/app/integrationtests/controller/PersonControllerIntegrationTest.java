@@ -92,7 +92,6 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
         assertEquals("Male", createPerson.getGender());
         assertEquals("jairo@email.com", createPerson.getEmail());
 
-        System.out.println("PERSON" + person.toString());
     }
 
     @Test
@@ -242,8 +241,8 @@ public class PersonControllerIntegrationTest extends AbstractIntegrationTest {
     @Order(5)
     @DisplayName("JUNIT integration Test Given Person Object when delete Should Return No Content")
     void integrationTestGivenPersonObject_when_Delete_ShouldReturnNoContent() throws JsonProcessingException {
-        System.out.println("PERSON" + person.toString());
-        person.setId(1L);
+        System.out.println("PERSON_ID: " + person.toString());
+
         var content = given()
                 .spec(specification)
                 .pathParam("id", person.getId())
